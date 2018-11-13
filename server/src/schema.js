@@ -1,5 +1,6 @@
 import {addMockFunctionsToSchema} from 'graphql-tools';
 import { ApolloServer, gql } from 'apollo-server-express';
+import { resolvers } from './resolvers';
 
 export const typeDefs = gql`
   type Contact {
@@ -10,7 +11,7 @@ export const typeDefs = gql`
 
 
   type Query {
-    contacts: [Contact]
+    getAllContacts: [Contact]
   }
 `;
 
@@ -18,6 +19,7 @@ export const typeDefs = gql`
 
 const GraphqlServer = new ApolloServer({
   typeDefs: typeDefs,
+  resolvers: resolvers,
   playground: {
     endpoint: `http://localhost:4000/graphql`,
     setting: {

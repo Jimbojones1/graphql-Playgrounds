@@ -1,9 +1,12 @@
 import express from 'express';
 import GraphqlServer from './src/schema';
+import cors from 'cors';
 
 const PORT = 4000;
 
 const app = express();
+
+app.use('*', cors({ origin: 'http://localhost:3000'}));
 
 GraphqlServer.applyMiddleware({
   app: app
