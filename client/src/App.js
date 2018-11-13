@@ -3,7 +3,7 @@ import Contacts from './Contacts';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 import './App.css';
-
+import AddContact from './AddContact';
 
 
 const client = new ApolloClient({
@@ -21,6 +21,7 @@ class App extends Component {
       <ApolloProvider client={client}>
         <div className="App">
           <Contacts />
+          <AddContact />
         </div>
       </ApolloProvider>
     );

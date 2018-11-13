@@ -18,14 +18,14 @@ const contacts = [
 
 export const resolvers = {
   Query: {
-    getAllContacts: () => {
+    contacts: () => {
       return contacts;
     },
   },
   Mutation: {
-    addContact: (root, {firstName, lastName}) => {
-      const newId = require('crypto').randomBytes(5).toString('hex');
-      const newContact = { id: newId, firstName: firstName, lastName: lastName}
+    addContact: (root, {id, firstName, lastName}) => {
+      // const newId = require('crypto').randomBytes(5).toString('hex');
+      const newContact = { id: id, firstName: firstName, lastName: lastName}
       contacts.push(newContact);
       return newContact
     },

@@ -11,11 +11,11 @@ export const typeDefs = gql`
 
 
   type Query {
-    getAllContacts: [Contact]
+    contacts: [Contact]
   }
 
   type Mutation {
-    addContact(firstName: String!, lastName: String!): Contact
+    addContact(id: String!, firstName: String!, lastName: String!): Contact
   }
 `;
 
