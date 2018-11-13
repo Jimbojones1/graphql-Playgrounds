@@ -17,8 +17,7 @@ const Contacts = ({ data: {loading, error, contacts}}) => {
 
   return (
     <ul>
-      <li>Larry David</li>
-      <li>Jerry Seinfeld</li>
+      {contactList}
     </ul>
     )
 }
