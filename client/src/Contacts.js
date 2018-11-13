@@ -1,6 +1,6 @@
 import React from 'react';
-import { gql, graphql } from 'react-apollo';
-
+import { graphql } from 'react-apollo';
+import gql from "graphql-tag";
 
 const Contacts = ({ data: {loading, error, contacts}}) => {
   if(loading){
