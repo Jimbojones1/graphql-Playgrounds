@@ -7,7 +7,7 @@ export const typeDefs = `
 
 
   type Query {
-    getAllContacts: [Contact]
+    contacts: [Contact]
   }
 
   type Mutation {

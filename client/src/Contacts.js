@@ -2,17 +2,17 @@ import React from 'react';
 import { graphql } from 'react-apollo';
 import gql from "graphql-tag";
 
-const Contacts = ({ data: {loading, error, contacts}}) => {
-  console.log(data, ' this is data')
-  if(loading){
+const Contacts = ({data}) => {
+  console.log(data)
+  if(data.loading){
     return <p>Loading...</p>
   }
 
-  if(error){
-    return <p>{error.message}</p>
+  if(data.error){
+    return <p>{data.error.message}</p>
   }
 
-  const contactList = contacts.map((contact) => {
+  const contactList = data.contacts.map((contact) => {
     return <li key={contact.id}>{contact.firstName} {contact.lastName}</li>
   })
 
@@ -25,7 +25,7 @@ const Contacts = ({ data: {loading, error, contacts}}) => {
 
 export const contactsListQuery = gql`
   query ContactsQuery {
-    getAllContacts {
+    contacts {
       id
       firstName
       lastName
