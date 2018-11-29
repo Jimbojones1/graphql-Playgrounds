@@ -27,8 +27,13 @@ export const resolvers = {
       const newId = require('crypto').randomBytes(5).toString('hex');
       const newContact = { id: newId, firstName: firstName, lastName: lastName}
       contacts.push(newContact);
-      return newContact
+      return newContact;
     },
+    deleteContact: (root, {id})=> {
+      contacts.splice(id, 1);
+
+      return 'Successfully deleted';
+    }
   }
 
 }
