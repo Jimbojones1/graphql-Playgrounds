@@ -33,4 +33,4 @@ export const contactsListQuery = gql`
   }
 `
 
-export default graphql(contactsListQuery)(Contacts );
+export default graphql(contactsListQuery)(Contacts);

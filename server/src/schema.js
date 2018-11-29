@@ -15,7 +15,7 @@ export const typeDefs = gql`
   }
 
   type Mutation {
-    addContact(id: String!, firstName: String!, lastName: String!): Contact
+    addContact(firstName: String!, lastName: String!): Contact
   }
 `;
 
