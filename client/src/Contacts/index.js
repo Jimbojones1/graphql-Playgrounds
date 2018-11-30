@@ -5,7 +5,21 @@ import gql from "graphql-tag";
 const Contacts = ({data, mutate}) => {
 
   const deleteContact = (id, e) => {
-    console.log(mutate, ' this is data')
+    console.log(typeof id)
+    mutate({
+       variables: {id: parseInt(id)},
+       update: (store, { data: { deleteContact }, error}) => {
+            console.log(error, ' this is erroe')
+            // Read the data from our cache for this query.
+            const data = store.readQuery({ query: contactsListQuery });
+            // // Add our comment from the mutation to the end.
+            console.log(data, ' data inside of update')
+            data.contacts.splice(id, 1);
+            // console.log(updatedList, ' this is it')
+            // // // Write our data back to the cache.
+            store.writeQuery({ query: contactsListQuery, data});
+          },
+    })
   }
 
 
@@ -21,7 +35,7 @@ const Contacts = ({data, mutate}) => {
     return <li key={contact.id}>
               {contact.firstName}
               {contact.lastName}
-              <button onClick={deleteContact.bind(null, this)}>Delete</button>
+              <button onClick={deleteContact.bind(null, contact.id)}>Delete</button>
           </li>
   })
 
@@ -44,9 +58,7 @@ export const contactsListQuery = gql`
 export const deleteContactMutation = gql`
   mutation deleteContact($id: ID!)
   {
-    deleteContact(id: $id){
-      message
-    }
+    deleteContact(id: $id)
   }
 `
 
