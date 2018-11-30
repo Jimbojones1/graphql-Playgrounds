@@ -41,16 +41,28 @@ export const contactsListQuery = gql`
     }
   }
 `
-export const deleteMutation = gql`
-  mutation {
-    contacts {
-      id
-      firstName
-      lastName
+export const deleteContactMutation = gql`
+  mutation deleteContact($id: ID!)
+  {
+    deleteContact(id: $id){
+      message
     }
   }
 `
 
+// export const createContact = gql`
+//   mutation addContact($firstName: String!, $lastName: String!){
+//     addContact(firstName: $firstName, lastName: $lastName){
+//       id
+//       firstName
+//       lastName
+//     }
+//   }
+// `
 
 
-export default graphql(contactsListQuery)(Contacts);
+
+export default compose(
+  graphql(contactsListQuery),
+  graphql(deleteContactMutation),
+  )(Contacts);

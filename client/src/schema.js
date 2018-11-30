@@ -1,16 +1,17 @@
-// export const typeDefs = `
-//   type Contact {
-//     id: ID!
-//     firstName: String
-//     lastName: String
-//   }
+export const typeDefs = `
+  type Contact {
+    id: ID!
+    firstName: String
+    lastName: String
+  }
 
 
-//   type Query {
-//     contacts: [Contact]
-//   }
+  type Query {
+    contacts: [Contact]
+  }
 
-//   type Mutation {
-//     addContact(firstName: String!, lastName: String!): Contact
-//   }
-// `
+  type Mutation {
+    addContact(firstName: String!, lastName: String!): Contact
+    deleteContact(id: ID!): String
+  }
+`
