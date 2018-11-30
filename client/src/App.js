@@ -4,7 +4,7 @@ import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 import './App.css';
 import AddContact from './AddContact';
-
+import { Grid } from 'semantic-ui-react';
 
 const client = new ApolloClient({
   uri: 'http://localhost:4000/graphql',
@@ -19,10 +19,17 @@ class App extends Component {
   render() {
     return (
       <ApolloProvider client={client}>
-        <div className="App">
-          <AddContact />
-          <Contacts />
-        </div>
+
+        <Grid columns={2} divided textAlign='center' style={{ height: '100%' }} verticalAlign='top' stackable>
+          <Grid.Row>
+            <Grid.Column>
+              <AddContact />
+            </Grid.Column>
+            <Grid.Column>
+              <Contacts />
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
       </ApolloProvider>
     );
   }

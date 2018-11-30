@@ -43,7 +43,7 @@ const Contacts = ({data, mutate}) => {
   })
 
   return (
-    <Card.Group className='centered'>
+    <Card.Group>
       {contactList}
     </Card.Group>
     )
