@@ -1,6 +1,7 @@
 import React from 'react';
 import { graphql, compose } from 'react-apollo';
 import gql from "graphql-tag";
+import { Button, Card } from 'semantic-ui-react';
 
 const Contacts = ({data, mutate}) => {
 
@@ -32,17 +33,19 @@ const Contacts = ({data, mutate}) => {
   }
 
   const contactList = data.contacts.map((contact) => {
-    return <li key={contact.id}>
-              {contact.firstName}
-              {contact.lastName}
-              <button onClick={deleteContact.bind(null, contact.id)}>Delete</button>
-          </li>
+    return <Card key={contact.id}>
+              <Card.Content>
+              <Card.Header>{contact.firstName} {" " + contact.lastName}</Card.Header>
+
+              </Card.Content>
+              <Button color="green" onClick={deleteContact.bind(null, contact.id)}>Delete</Button>
+          </Card>
   })
 
   return (
-    <ul>
+    <Card.Group className='centered'>
       {contactList}
-    </ul>
+    </Card.Group>
     )
 }
 
@@ -61,16 +64,6 @@ export const deleteContactMutation = gql`
     deleteContact(id: $id)
   }
 `
-
-// export const createContact = gql`
-//   mutation addContact($firstName: String!, $lastName: String!){
-//     addContact(firstName: $firstName, lastName: $lastName){
-//       id
-//       firstName
-//       lastName
-//     }
-//   }
-// `
 
 
 

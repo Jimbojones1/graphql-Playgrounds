@@ -20,8 +20,8 @@ class App extends Component {
     return (
       <ApolloProvider client={client}>
         <div className="App">
-          <Contacts />
           <AddContact />
+          <Contacts />
         </div>
       </ApolloProvider>
     );
