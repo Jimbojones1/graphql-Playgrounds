@@ -2,26 +2,26 @@ import React from 'react';
 import { graphql, compose } from 'react-apollo';
 import gql from "graphql-tag";
 
-const Contacts = (props) => {
+const Contacts = ({data, mutate}) => {
 
   const deleteContact = (id, e) => {
-    console.log(props, ' this is data')
+    console.log(mutate, ' this is data')
   }
 
 
-  if(props.data.loading){
+  if(data.loading){
     return <p>Loading...</p>
   }
 
-  if(props.data.error){
-    return <p>{props.data.error.message}</p>
+  if(data.error){
+    return <p>{data.error.message}</p>
   }
 
-  const contactList = props.data.contacts.map((contact) => {
+  const contactList = data.contacts.map((contact) => {
     return <li key={contact.id}>
               {contact.firstName}
               {contact.lastName}
-              <button onClick={deleteContact}>Delete</button>
+              <button onClick={deleteContact.bind(null, this)}>Delete</button>
           </li>
   })
 
