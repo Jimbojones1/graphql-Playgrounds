@@ -1,16 +1,16 @@
-const contacts = [
+let contacts = [
   {
-    id: 1,
+    id: 0,
     firstName: 'Jim',
     lastName: 'Haff'
   },
   {
-    id: 2,
+    id: 1,
     firstName: 'Maria',
     lastName: 'Sengle'
   },
   {
-    id: 4,
+    id: 2,
     firstName: 'Kate',
     lastName: 'yan'
   }
@@ -30,8 +30,9 @@ export const resolvers = {
       return newContact;
     },
     deleteContact: (root, {id})=> {
+      console.log(id, ' id')
       contacts.splice(id, 1);
-
+      console.log(contacts, 'this is contacts')
       return 'Successfully deleted';
     }
   }
