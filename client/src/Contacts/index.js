@@ -35,7 +35,7 @@ const Contacts = ({data, mutate}) => {
   const contactList = data.contacts.map((contact) => {
     return <Card key={contact.id}>
               <Card.Content>
-              <Card.Header>{contact.firstName} {" " + contact.lastName}</Card.Header>
+                <Card.Header>{contact.firstName} {" " + contact.lastName}</Card.Header>
 
               </Card.Content>
               <Button color="green" onClick={deleteContact.bind(null, contact.id)}>Delete</Button>
@@ -43,7 +43,7 @@ const Contacts = ({data, mutate}) => {
   })
 
   return (
-    <Card.Group>
+    <Card.Group className="centered">
       {contactList}
     </Card.Group>
     )

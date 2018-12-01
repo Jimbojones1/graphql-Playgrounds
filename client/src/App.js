@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Contacts from './Contacts';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
-import './App.css';
 import AddContact from './AddContact';
 import { Grid } from 'semantic-ui-react';
 
@@ -20,12 +19,12 @@ class App extends Component {
     return (
       <ApolloProvider client={client}>
 
-        <Grid columns={2} divided textAlign='center' style={{ height: '100%' }} verticalAlign='top' stackable>
-          <Grid.Row>
-            <Grid.Column>
+        <Grid  columns={2} divided textAlign='center' style={{ height: '100%' }} verticalAlign='top' stackable>
+          <Grid.Row >
+            <Grid.Column style={{backgroundColor: 'green'}}>
               <AddContact />
             </Grid.Column>
-            <Grid.Column>
+            <Grid.Column  style={{backgroundColor: 'purple'}}>
               <Contacts />
             </Grid.Column>
           </Grid.Row>

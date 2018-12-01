@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import gql from "graphql-tag";
-
+import { Button, Form } from 'semantic-ui-react';
 import { contactsListQuery } from '../Contacts';
 
 class AddContact extends Component {
@@ -29,11 +29,11 @@ class AddContact extends Component {
   }
   render(){
     return (
-      <form onSubmit={this.handleSave}>
-        <input value={this.state.firstName} placeholder="first name" name='firstName' onChange={this.handleInput}/>
-        <input value={this.state.lastName} placeholder="last name" name='lastName' onChange={this.handleInput}/>
-        <button type="Submit">Add Contact</button>
-      </form>
+      <Form onSubmit={this.handleSave} className="centered">
+        <Form.Input value={this.state.firstName} placeholder="first name" name='firstName' onChange={this.handleInput}/>
+        <Form.Input value={this.state.lastName} placeholder="last name" name='lastName' onChange={this.handleInput}/>
+        <Button type="Submit">Add Contact</Button>
+      </Form>
       )
   }
 
