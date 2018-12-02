@@ -38,8 +38,13 @@ const Contacts = ({data, mutate}) => {
                 <Card.Header>{contact.firstName} {" " + contact.lastName}</Card.Header>
 
               </Card.Content>
-              <Button color="green" onClick={deleteContact.bind(null, contact.id)}>Delete</Button>
-          </Card>
+              <Card.Content extra>
+                <div className='ui two buttons'>
+                  <Button basic color="red" onClick={deleteContact.bind(null, contact.id)}>Delete</Button>
+                  <Button basic color="green">Edit</Button>
+                </div>
+              </Card.Content>
+            </Card>
   })
 
   return (
