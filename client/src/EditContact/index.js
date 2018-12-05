@@ -5,14 +5,10 @@ import { Button, Form, Modal } from 'semantic-ui-react';
 import { contactsListQuery } from '../Contacts';
 
 class EditContact extends Component {
-  state = {
-    firstName: '',
-    lastName: ''
-  }
-  editContact = (contact, e) => {
-    // console.log(editContactProp, ' this is editContactProp', contact)
+  editContact = (e) => {
+    console.log(this.props.contactToEdit)
     this.props.mutate({
-       variables: {id: parseInt(contact.id), contact: contact},
+       variables: {editContact: {id: this.props.contactToEdit.id, firstName: this.props.contactToEdit.firstName, lastName: this.props.contactToEdit.lastName}},
        update: (store, { data: { editContact }, error}) => {
             console.log(error, ' this is error')
             console.log(editContact)
@@ -22,8 +18,10 @@ class EditContact extends Component {
             console.log(data, ' data inside of update')
             data.contacts[editContact.id] = editContact;
             // console.log(updatedList, ' this is it')
+            console.log(data)
             // // // Write our data back to the cache.
             store.writeQuery({ query: contactsListQuery, data});
+            this.props.handleEditState(false);
           },
     })
   };
@@ -33,9 +31,9 @@ class EditContact extends Component {
   render(){
     return (
       <Modal open={this.props.open}>
-      <Form onSubmit={this.handleSave} className="centered">
-        <Form.Input value={this.state.firstName} placeholder="first name" name='firstName' onChange={this.handleInput}/>
-        <Form.Input value={this.state.lastName} placeholder="last name" name='lastName' onChange={this.handleInput}/>
+      <Form onSubmit={this.editContact} className="centered">
+        <Form.Input value={this.props.contactToEdit.firstName} placeholder="first name" name='firstName' onChange={this.props.handleEditInput}/>
+        <Form.Input value={this.props.contactToEdit.lastName} placeholder="last name" name='lastName' onChange={this.props.handleEditInput}/>
         <Button type="Submit">Edit Contact</Button>
       </Form>
       </Modal>
@@ -47,9 +45,13 @@ class EditContact extends Component {
 // First line makes sure right value is passed
 
 export const editContactMutation = gql`
-  mutation editContact($id: ID!, $contact: ContactInput)
+  mutation editContact($editContact: ContactInput)
   {
-    editContact(id: $id, contact: $contact)
+    editContact(editContact: $editContact){
+      id
+      firstName
+      lastName
+    }
   }
 `
 

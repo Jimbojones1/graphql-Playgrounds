@@ -28,6 +28,7 @@ class App extends Component {
     }
   }
   handleEditState = (editState, contactToEdit) => {
+    console.log(editState, ' dasfdasljkfkladsj')
     if(editState) {
       this.setState({
         editOpen: editState,
@@ -39,6 +40,14 @@ class App extends Component {
       this.setState({editOpen: editState});
     }
 
+  }
+  handleEditInput = (e) => {
+    this.setState({
+      contactToEdit: {
+        ...this.state.contactToEdit,
+        [e.currentTarget.name]: e.currentTarget.value
+      }
+    })
   }
   render() {
     return (
@@ -52,7 +61,7 @@ class App extends Component {
               <Grid.Column  style={{backgroundColor: 'purple'}}>
                 <Contacts handleEditState={this.handleEditState}/>
               </Grid.Column>
-              <EditContact open={this.state.editOpen} contactToEdit={this.state.contactToEdit} handleEditState={this.handleEditState}/>
+              <EditContact open={this.state.editOpen} contactToEdit={this.state.contactToEdit} handleEditState={this.handleEditState} handleEditInput={this.handleEditInput}/>
             </Grid.Row>
           </Grid>
         </Container>
