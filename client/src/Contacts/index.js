@@ -3,8 +3,16 @@ import { graphql, compose } from 'react-apollo';
 import gql from "graphql-tag";
 import { Button, Card } from 'semantic-ui-react';
 
-const Contacts = ({data, mutate}) => {
-  console.log(mutate);
+const Contacts = ({data, mutate, handleEditState}) => {
+  // console.log(mutate, editContactProp, mutate.editContact);
+  console.log('=======================================')
+  console.log(mutate)
+  console.log('=======================================')
+  console.log('=======================================')
+
+  console.log('=======================================')
+
+  console.log('=======================================')
   const deleteContact = (id, e) => {
     console.log(typeof id)
     mutate({
@@ -23,24 +31,24 @@ const Contacts = ({data, mutate}) => {
     })
   }
 
-  const editContact = (contact, e) => {
-    console.log(contact)
-    mutate({
-       variables: {id: parseInt(contact.id), contact: contact},
-       update: (store, { data: { editContact }, error}) => {
-            console.log(error, ' this is error')
-            console.log(editContact)
-            // Read the data from our cache for this query.
-            const data = store.readQuery({ query: contactsListQuery });
-            // // edit contact
-            console.log(data, ' data inside of update')
-            data.contacts[editContact.id] = editContact;
-            // console.log(updatedList, ' this is it')
-            // // // Write our data back to the cache.
-            store.writeQuery({ query: contactsListQuery, data});
-          },
-    })
-  };
+  // const editContact = (contact, e) => {
+  //   console.log(editContactProp, ' this is editContactProp', contact)
+  //   editContactProp({
+  //      variables: {id: parseInt(contact.id), contact: contact},
+  //      update: (store, { data: { editContact }, error}) => {
+  //           console.log(error, ' this is error')
+  //           console.log(editContact)
+  //           // Read the data from our cache for this query.
+  //           const data = store.readQuery({ query: contactsListQuery });
+  //           // // edit contact
+  //           console.log(data, ' data inside of update')
+  //           data.contacts[editContact.id] = editContact;
+  //           // console.log(updatedList, ' this is it')
+  //           // // // Write our data back to the cache.
+  //           store.writeQuery({ query: contactsListQuery, data});
+  //         },
+  //   })
+  // };
 
 
   if(data.loading){
@@ -60,7 +68,7 @@ const Contacts = ({data, mutate}) => {
               <Card.Content extra>
                 <div className='ui two buttons'>
                   <Button basic color="red" onClick={deleteContact.bind(null, contact.id)}>Delete</Button>
-                  <Button basic color="green" onClick={editContact.bind(null, contact)}>Edit</Button>
+                  <Button basic color="green" onClick={handleEditState.bind(null, true, contact)}>Edit</Button>
                 </div>
               </Card.Content>
             </Card>
@@ -89,17 +97,9 @@ export const deleteContactMutation = gql`
   }
 `
 
-export const editContactMutation = gql`
-  mutation editContact($id: ID!, $contact: ContactInput)
-  {
-    editContact(id: $id, contact: $contact)
-  }
-`
-
 
 
 export default compose(
   graphql(contactsListQuery),
-  graphql(deleteContactMutation),
-  graphql(editContactMutation),
+  graphql(deleteContactMutation)
   )(Contacts);

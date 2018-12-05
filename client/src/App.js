@@ -4,6 +4,7 @@ import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 import AddContact from './AddContact';
 import { Grid, Container } from 'semantic-ui-react';
+import EditContact from './EditContact';
 
 const client = new ApolloClient({
   uri: 'http://localhost:4000/graphql',
@@ -15,6 +16,30 @@ const client = new ApolloClient({
 
 
 class App extends Component {
+  constructor(){
+    super();
+    this.state = {
+      editOpen: false,
+      contactToEdit: {
+        id: null,
+        firstName: '',
+        lastName: ''
+      }
+    }
+  }
+  handleEditState = (editState, contactToEdit) => {
+    if(editState) {
+      this.setState({
+        editOpen: editState,
+        contactToEdit: {
+          ...contactToEdit
+        }
+      });
+    } else {
+      this.setState({editOpen: editState});
+    }
+
+  }
   render() {
     return (
       <ApolloProvider client={client}>
@@ -25,8 +50,9 @@ class App extends Component {
                 <AddContact />
               </Grid.Column>
               <Grid.Column  style={{backgroundColor: 'purple'}}>
-                <Contacts />
+                <Contacts handleEditState={this.handleEditState}/>
               </Grid.Column>
+              <EditContact open={this.state.editOpen} contactToEdit={this.state.contactToEdit} handleEditState={this.handleEditState}/>
             </Grid.Row>
           </Grid>
         </Container>
