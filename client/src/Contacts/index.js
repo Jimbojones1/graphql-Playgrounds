@@ -23,6 +23,24 @@ const Contacts = ({data, mutate}) => {
     })
   }
 
+  const editContact = (contact, e) => {
+
+    mutate({
+       variables: {id: parseInt(contact.id), contact: contact},
+       update: (store, { data: { editContact }, error}) => {
+            console.log(error, ' this is error')
+            // Read the data from our cache for this query.
+            const data = store.readQuery({ query: contactsListQuery });
+            // // edit contact
+            console.log(data, ' data inside of update')
+            data.contacts[editContact.id] = editContact;
+            // console.log(updatedList, ' this is it')
+            // // // Write our data back to the cache.
+            store.writeQuery({ query: contactsListQuery, data});
+          },
+    })
+  };
+
 
   if(data.loading){
     return <p>Loading...</p>
@@ -41,7 +59,7 @@ const Contacts = ({data, mutate}) => {
               <Card.Content extra>
                 <div className='ui two buttons'>
                   <Button basic color="red" onClick={deleteContact.bind(null, contact.id)}>Delete</Button>
-                  <Button basic color="green">Edit</Button>
+                  <Button basic color="green" onClick={editContact.bind(null, contact)}>Edit</Button>
                 </div>
               </Card.Content>
             </Card>
@@ -65,6 +83,13 @@ export const contactsListQuery = gql`
 `
 export const deleteContactMutation = gql`
   mutation deleteContact($id: ID!)
+  {
+    deleteContact(id: $id)
+  }
+`
+
+export const editContactMutation = gql`
+  mutation editContact($id: ID!, $contact: Contact)
   {
     deleteContact(id: $id)
   }

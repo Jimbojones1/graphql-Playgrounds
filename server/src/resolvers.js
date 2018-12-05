@@ -34,7 +34,12 @@ export const resolvers = {
       contacts.splice(id, 1);
       console.log(contacts, 'this is contacts')
       return 'Successfully deleted';
-    }
+    },
+    editContact: (root, {id, contact}) => {
+      contacts[id] = contact;
+
+      return contact;
+    },
   }
 
 }
