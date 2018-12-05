@@ -36,6 +36,7 @@ export const resolvers = {
       return 'Successfully deleted';
     },
     editContact: (root, {id, contact}) => {
+      console.log(id, contact);
       contacts[id] = contact;
 
       return contact;

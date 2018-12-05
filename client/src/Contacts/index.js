@@ -4,7 +4,7 @@ import gql from "graphql-tag";
 import { Button, Card } from 'semantic-ui-react';
 
 const Contacts = ({data, mutate}) => {
-
+  console.log(mutate);
   const deleteContact = (id, e) => {
     console.log(typeof id)
     mutate({
@@ -24,11 +24,12 @@ const Contacts = ({data, mutate}) => {
   }
 
   const editContact = (contact, e) => {
-
+    console.log(contact)
     mutate({
        variables: {id: parseInt(contact.id), contact: contact},
        update: (store, { data: { editContact }, error}) => {
             console.log(error, ' this is error')
+            console.log(editContact)
             // Read the data from our cache for this query.
             const data = store.readQuery({ query: contactsListQuery });
             // // edit contact
@@ -89,9 +90,9 @@ export const deleteContactMutation = gql`
 `
 
 export const editContactMutation = gql`
-  mutation editContact($id: ID!, $contact: Contact)
+  mutation editContact($id: ID!, $contact: ContactInput)
   {
-    deleteContact(id: $id)
+    editContact(id: $id, contact: $contact)
   }
 `
 
@@ -100,4 +101,5 @@ export const editContactMutation = gql`
 export default compose(
   graphql(contactsListQuery),
   graphql(deleteContactMutation),
+  graphql(editContactMutation),
   )(Contacts);

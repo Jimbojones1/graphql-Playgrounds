@@ -14,12 +14,16 @@ export const typeDefs = gql`
     contacts: [Contact]
   }
 
-
+  input ContactInput {
+    id: ID
+    firstName: String
+    lastName: String
+  }
 
   type Mutation {
     addContact(firstName: String!, lastName: String!): Contact
     deleteContact(id: ID!): String
-    editContact(id: ID!, input: Contact): Contact
+    editContact(id: ID!, contact: ContactInput): Contact
   }
 `;
 
