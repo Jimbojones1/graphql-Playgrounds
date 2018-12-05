@@ -35,11 +35,11 @@ export const resolvers = {
       console.log(contacts, 'this is contacts')
       return 'Successfully deleted';
     },
-    editContact: (root, {id, contact}) => {
-      console.log(id, contact);
-      contacts[id] = contact;
+    editContact: (root, {editContact}) => {
+      console.log(editContact);
+      contacts[editContact.id] = editContact;
 
-      return contact;
+      return editContact;
     },
   }
 
